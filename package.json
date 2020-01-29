@@ -3,27 +3,31 @@
   "description": "Help to mount remote filesystem through ssh.",
   "version": "0.0.7",
   "author": "Charles Bourasseau <charles.bourasseau@gmail.com>",
-  "contributors": [
-  ],
+  "contributors": [],
   "dependencies": {
     "coffee-script": ">= 1.3.3"
   },
   "devDependencies": {
-    "vows": ">= 0.6.2"
-    , "wrench": ">= 1.3.7"
-    , "underscore": ">= 1.3.1"
-    , "markdox": ">= 0.0.10"
+    "vows": ">= 0.6.2",
+    "wrench": ">= 1.3.7",
+    "underscore": ">= 1.3.1",
+    "markdox": ">= 0.0.10"
   },
-  "keywords": ["sshfs", "filesystem", "ssh", "remote"],
+  "keywords": [
+    "sshfs",
+    "filesystem",
+    "ssh",
+    "remote"
+  ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:cbou/sshfs-node.git"
+    "url": "git@github.com:caaatpro/sshfs-node.git"
   },
   "main": "index",
   "license": "MIT",
   "scripts": {
-    "test": "./node_modules/vows/bin/vows test/*-test.coffee --spec"
-    , "documentation": "./node_modules/markdox/bin/markdox -o doc/api.md lib/sshfs-node.coffee"
+    "test": "./node_modules/vows/bin/vows test/*-test.coffee --spec",
+    "documentation": "./node_modules/markdox/bin/markdox -o doc/api.md lib/sshfs-node.coffee"
   },
   "engines": {
     "node": ">= 4.6.2"
