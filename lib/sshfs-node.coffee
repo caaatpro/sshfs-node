@@ -32,10 +32,6 @@ sshfs = {}
  * @param {Function} callback Callback function with parameters (err)
 ###
 sshfs.mount = (host, mountpoint, options, callback) ->
-  identityOption = ''
-  if options && options.identityFile
-    identityOption = util.format '-o IdentityFile=%s', options.identityFile
-
   userOption = ''
   if options && options.user
     userOption = util.format '%s@', encodeURI(options.user)
@@ -44,16 +40,30 @@ sshfs.mount = (host, mountpoint, options, callback) ->
   if options && options.cache == false
     cacheOption = '-o cache=no'
 
-  portOption = ''
+  portOption = '22'
   if options && options.port
-    portOption = util.format '-o port=%d', options.port
+    portOption = util.format '%d', options.port
 
   pathOption = '/'
   if options && (typeof(options.path) == 'string')
     pathOption = util.format '%s', options.path
 
-  # sshfs -o IdentityFile=~/.ssh/id_rsa user@localhost:"/" "~/mnt/localhost_mount/"
-  command = util.format 'sshfs %s %s %s -o StrictHostKeyChecking=no %s%s:"%s" "%s"', identityOption, cacheOption, portOption, userOption, host, pathOption, mountpoint
+  passOption = ''
+  if options && (typeof(options.pass) == 'string')
+    passOption = util.format '%s', options.pass
+
+  ovolnameOption = 'mountdir'
+  if options && (typeof(options.ovolname) == 'string')
+    ovolnameOption = util.format '%s', options.ovolname
+
+  reconnectOption = ''
+  if options && options.reconnect
+    reconnectOption = '-o reconnect'
+
+  
+  # sshpass -p *** sshfs -o reconnect -ovolname='mountdir' -o cache=yes -p 22  user@hhost:/ /
+  command = util.format 'sshpass -p %s sshfs %s -ovolname='%s' %s -p %s  %s@%s:%s %s', 
+                  passOption, reconnectOption, ovolnameOption, cacheOption, portOption, userOption, host, pathOption, mountpoint
   sshfs.exec command, callback
 
 ###*
